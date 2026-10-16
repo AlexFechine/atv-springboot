@@ -10,16 +10,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @Builder
 @Data
-@Table(name = "tb_autor")
+@Table(name = "tb_livro")
 @AllArgsConstructor
 @NoArgsConstructor
 
 public class Livro {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonProperty("id")
-    private Long ISBN;
+    @JsonProperty("ISBN")
+    private Long isbn;
 
     @Column(name = "ds_titulo", nullable = false)
     @JsonProperty("titulo")
@@ -32,5 +31,9 @@ public class Livro {
     @Column(name = "ds_edicao", nullable = false)
     @JsonProperty("edição")
     private String edicao;
+
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "autor_id", nullable = false)
+    private Autor autor;
 
 }
